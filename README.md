@@ -1,2 +1,2 @@
 # city-parking
-City parking spaces RES Project
+City parking spaces REST Project

@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: ${DATABASE_CONNECTION_STRING:jdbc:postgresql://localhost:5432/parking-meter}
+    username: ${DB_USER:admin}
+    password: ${DB_PASSWORD:admin}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        temp.use_jdbc_metadata_defaults: false
+  cloud:
+    refresh:
+      refreshable: none
+  cache:
+    caffeine:
+      spec: maximumSize=${CACHE_MAXIMUM_SIZE:100}, expireAfterWrite=${CACHE_TIME_IN_SECONDS:10}
+  flyway:
+    enabled: true
+    schemas: ["public"]
+    locations: ["classpath:db/migrations", "classpath:db.migrations"]
+
+server:
+  port: 8080
