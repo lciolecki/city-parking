@@ -2,7 +2,6 @@ package com.city.parkingMeter.parking.domain.price;
 
 import org.joda.time.Hours;
 
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Objects;
@@ -32,12 +31,12 @@ public interface PriceCalculator {
         }
 
         return Hours.hoursBetween(
-            org.joda.time.Instant.ofEpochMilli(startedAt.toEpochMilli()),
-            org.joda.time.Instant.ofEpochMilli(finishedAt.toEpochMilli())
+                org.joda.time.Instant.ofEpochMilli(startedAt.toEpochMilli()),
+                org.joda.time.Instant.ofEpochMilli(finishedAt.toEpochMilli())
         ).getHours() + 1;
     }
 
-    default double amount(int hour, int hours, double previous)  {
+    default double amount(int hour, int hours, double previous) {
         double actual = 2.0;
 
         if (hour == 1) {

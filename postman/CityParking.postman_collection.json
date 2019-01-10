@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "b48aee7b-f1df-446e-acea-27254619e847",
+		"name": "CityParking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Start Parking",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"registrationNumber\": \"LLB36486\",\n\t\"driverType\": \"REGULAR\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/parking/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parking",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrive Parking",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"registrationNumber\": \"TEST\",\n\t\"driverType\": \"REGULAR\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/parking/{{parking_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parking",
+						"{{parking_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Parking",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"registrationNumber\": \"TEST\",\n\t\"driverType\": \"REGULAR\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/parking/{{parking_id}}/check-payment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parking",
+						"{{parking_id}}",
+						"check-payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Stop Parking",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"price\": 0\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/parking/{{parking_id}}/stop",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parking",
+						"{{parking_id}}",
+						"stop"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Operator: check vehicle starts parking",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"registrationNumber\": \"TEST\",\n\t\"driverType\": \"REGULAR\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/operator/vehicle/{{register_number}}/check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"operator",
+						"vehicle",
+						"{{register_number}}",
+						"check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Operator: summary",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"registrationNumber\": \"TEST\",\n\t\"driverType\": \"REGULAR\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/operator/summary/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"operator",
+						"summary",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

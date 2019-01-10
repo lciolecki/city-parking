@@ -8,7 +8,7 @@ import lombok.Getter;
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 import static java.util.Objects.isNull;
@@ -31,7 +31,9 @@ public final class HashId implements Serializable {
     }
 
     public static HashId of(String id) {
-        return of(UUID.fromString(id));
+        return Optional.ofNullable(id)
+                .map(v -> new HashId(UUID.fromString(id)))
+                .orElseThrow(() -> InvalidValueObjectDataException.invalid("Invalid id."));
     }
 
     public static HashId of(UUID id) {

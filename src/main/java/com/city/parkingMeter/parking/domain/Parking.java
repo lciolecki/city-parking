@@ -42,7 +42,7 @@ public class Parking {
 
     private Instant finishedAt;
 
-    @Column(precision=10, scale=2, columnDefinition="Decimal(10,2)")
+    @Column(precision = 10, scale = 2, columnDefinition = "Decimal(10,2)")
     private BigDecimal price;
 
     private Parking(

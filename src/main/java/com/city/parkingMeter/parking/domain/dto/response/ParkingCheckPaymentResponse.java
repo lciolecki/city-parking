@@ -27,11 +27,11 @@ public class ParkingCheckPaymentResponse {
 
     public static ParkingCheckPaymentResponse of(Parking parking, BigDecimal price, Instant finishedAt) {
         return new ParkingCheckPaymentResponse(
-            parking.getRegistrationNumber(),
-            finishedAt,
-            parking.getStartedAt(),
-            price,
-            parking.getId()
+                parking.getRegistrationNumber(),
+                finishedAt,
+                parking.getStartedAt(),
+                price,
+                parking.getId()
         );
     }
 }

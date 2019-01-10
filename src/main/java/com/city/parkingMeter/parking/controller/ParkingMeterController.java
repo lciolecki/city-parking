@@ -10,6 +10,7 @@ import com.city.parkingMeter.parking.domain.dto.response.ParkingResponse;
 import com.city.parkingMeter.parking.domain.vo.HashId;
 import com.city.parkingMeter.parking.service.ParkingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +29,9 @@ public class ParkingMeterController {
     private final ParkingService parkingService;
 
     @PostMapping("/")
-    public ParkingCreateResponse create(@RequestBody @Validated ParkingPayload payload) {
+    public ResponseEntity<ParkingCreateResponse> create(@RequestBody @Validated ParkingPayload payload) {
         Parking parking = parkingService.create(payload);
-        return ParkingCreateResponse.fromParkingEntity(parking);
+        return new ResponseEntity(ParkingCreateResponse.fromParkingEntity(parking), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

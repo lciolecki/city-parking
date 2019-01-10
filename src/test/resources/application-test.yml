@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: "jdbc:h2:mem:test;MODE=PostgreSQL"
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+      jdbc.lob.non_contextual_creation: true
+  cloud:
+    refresh:
+      enabled: false
+  cache:
+    caffeine:
+      spec: maximumSize=500, expireAfterWrite=300s

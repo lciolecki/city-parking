@@ -39,5 +39,7 @@ public final class RegistrationNumber implements Serializable {
     }
 
     @Override
-    public String toString() { return value; }
+    public String toString() {
+        return value;
+    }
 }
