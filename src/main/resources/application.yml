@@ -1,14 +1,14 @@
 spring:
   datasource:
     url: ${DATABASE_CONNECTION_STRING:jdbc:postgresql://localhost:5432/parking_meter}
-    username: ${DB_USER:admin}
+    username: ${DB_USER:postgres}
     password: ${DB_PASSWORD:admin}
     driver-class-name: org.postgresql.Driver
   jpa:
     generate-ddl: ${JPA_GENERATE_DDL:false}
     hibernate:
       use-new-id-generator-mappings: false
-      ddl-auto: ${HIBERNATE_DDL_AUTO:validate}
+      ddl-auto: ${HIBERNATE_DDL_AUTO:create-drop}
     properties:
       hibernate:
         temp.use_jdbc_metadata_defaults: false

@@ -1,6 +1,8 @@
 package com.city.parkingMeter.parking.domain.vo;
 
+import com.city.parkingMeter.infrastructure.exception.InvalidValueObjectDataException;
 import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import javax.persistence.Column;
@@ -12,6 +14,7 @@ import java.util.UUID;
 import static java.util.Objects.isNull;
 
 @Getter
+@EqualsAndHashCode
 public final class HashId implements Serializable {
 
     @NotNull
@@ -32,27 +35,18 @@ public final class HashId implements Serializable {
     }
 
     public static HashId of(UUID id) {
-        if (isNull(id)) {
-            throw new IllegalArgumentException("HashId must not be null");
+        return new HashId(HashId.validate(id));
+    }
+
+    public static UUID validate(UUID value) {
+        if (isNull(value)) {
+            throw new InvalidValueObjectDataException("ID must not be null.");
         }
 
-        return new HashId(id);
+        return value;
     }
 
     public String getValueAsString() {
         return value.toString();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        HashId hashId = (HashId) o;
-        return value.equals(hashId.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
     }
 }
