@@ -1,6 +1,5 @@
 package com.city.parkingMeter.infrastructure.exception;
 
-import com.city.parkingMeter.parking.domain.vo.HashId;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -15,19 +14,14 @@ public class RecordNotFoundException extends RuntimeException {
         return new RecordNotFoundException(message);
     }
 
-    public static RecordNotFoundException notFound(Class<?> objectClass, String identifier, String value) {
+    public static <ID> RecordNotFoundException notFound(Class<?> objectClass, ID value) {
         return new RecordNotFoundException(
                 String.format(
-                        "Record of %s with %s %s doesn't exist.",
+                        "Record of %s with %s doesn't exist.",
                         objectClass.getSimpleName(),
-                        identifier,
-                        value
+                        value.toString()
                 )
         );
-    }
-
-    public static RecordNotFoundException notFound(Class<?> objectClass, HashId id) {
-        return RecordNotFoundException.notFound(objectClass, "id", id.getValueAsString());
     }
 }
 

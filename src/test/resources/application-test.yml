@@ -9,9 +9,3 @@ spring:
     hibernate:
       ddl-auto: validate
       jdbc.lob.non_contextual_creation: true
-  cloud:
-    refresh:
-      enabled: false
-  cache:
-    caffeine:
-      spec: maximumSize=500, expireAfterWrite=300s

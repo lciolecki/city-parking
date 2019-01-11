@@ -1,11 +1,10 @@
 package com.city.parkingMeter.integration;
 
-import com.city.parkingMeter.infrastructure.tools.JsonTestResourceContentFileReader;
 import com.city.parkingMeter.parking.domain.Parking;
 import com.city.parkingMeter.parking.domain.vo.HashId;
 import com.city.parkingMeter.parking.repository.ParkingRepository;
-import com.city.parkingMeter.parking.service.ParkingService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.io.Resources;
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 import org.junit.After;
 import org.junit.Assert;
@@ -20,6 +19,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -41,9 +43,6 @@ public class ParkingIntegrationTest {
     @Autowired
     private ParkingRepository repository;
 
-    @Autowired
-    private ParkingService parkingService;
-
     @After
     public void clearDb() {
         repository.deleteAll();
@@ -56,9 +55,14 @@ public class ParkingIntegrationTest {
         return headers;
     }
 
+    protected String getRequesttData(String filename) throws IOException {
+        URL url = Resources.getResource(String.format("json/%s", filename));
+        return Resources.toString(url, StandardCharsets.UTF_8);
+    }
+
     @Test
-    public void createParkingTest() throws Exception {
-        String parkingData = JsonTestResourceContentFileReader.readAsString("parking.json");
+    public void shouldCreateParking() throws Exception {
+        String parkingData = getRequesttData("parking.json");
 
         String content = mvc.perform(post("/parking/").content(parkingData).headers(getRequestHeaders()))
                 .andExpect(status().isCreated())
@@ -80,8 +84,8 @@ public class ParkingIntegrationTest {
     }
 
     @Test
-    public void createParkingWithSameRegistrationNumber() throws Exception {
-        String parkingData = JsonTestResourceContentFileReader.readAsString("parking.json");
+    public void shouldNotCreateParkingWithSameRegistrationNumber() throws Exception {
+        String parkingData = getRequesttData("parking.json");
 
         mvc.perform(post("/parking/").content(parkingData).headers(getRequestHeaders()))
                 .andExpect(status().isCreated())

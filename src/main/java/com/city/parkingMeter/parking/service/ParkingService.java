@@ -35,7 +35,7 @@ public class ParkingService {
 
     public Parking fetchStartedByRegistrationNumber(final RegistrationNumber registrationNumber) {
         return parkingRepository.fetchStartedByRegistrationNumber(registrationNumber)
-                .orElseThrow(() -> RecordNotFoundException.notFound(Parking.class, "registration number", registrationNumber.toString()));
+                .orElseThrow(() -> RecordNotFoundException.notFound(Parking.class, registrationNumber.toString()));
     }
 
     public final Parking fetch(final HashId id, final ParkingStatus parkingStatus) {
@@ -48,15 +48,15 @@ public class ParkingService {
             throw ParkingStatusException.startedException(payload.getRegistrationNumber());
         }
 
-        Parking parking = Parking.createFromPayload(payload);
+        final Parking parking = Parking.createFromPayload(payload);
 
         return parkingRepository.save(parking);
     }
 
-    public Parking stop(HashId id, ParkingStopPayload payload) {
+    public Parking stop(final HashId id, final ParkingStopPayload payload) {
         Parking parking = fetch(id, ParkingStatus.STARTED);
 
-        BigDecimal price = calculatePayment(parking, payload.getFinishedAt());
+        final BigDecimal price = calculatePayment(parking, payload.getFinishedAt());
         if (!Objects.equals(payload.getPrice(), price)) {
             throw ParkingPriceException.wrongStopPrice(payload.getPrice(), price);
         }
@@ -66,15 +66,15 @@ public class ParkingService {
         return parkingRepository.save(parking);
     }
 
-    public BigDecimal calculatePayment(Parking parking, Instant finishedAt) {
-        PriceCalculator priceCalculator = PriceCounterFactory.create(parking.getDriverType());
-        BigDecimal price = priceCalculator.calculate(parking.getStartedAt(), finishedAt);
+    public BigDecimal calculatePayment(final Parking parking, final Instant finishedAt) {
+        final PriceCalculator priceCalculator = PriceCounterFactory.create(parking.getDriverType());
+        final BigDecimal price = priceCalculator.calculate(parking.getStartedAt(), finishedAt);
 
         return price;
     }
 
-    public boolean isVehicleStartedParking(RegistrationNumber registrationNumber) {
-        Optional<Parking> existParking = parkingRepository.fetchStartedByRegistrationNumber(registrationNumber);
+    boolean isVehicleStartedParking(final RegistrationNumber registrationNumber) {
+        final Optional<Parking> existParking = parkingRepository.fetchStartedByRegistrationNumber(registrationNumber);
         return existParking.isPresent();
     }
 }

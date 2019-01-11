@@ -18,13 +18,13 @@ public class OperatorService {
 
     private final ParkingRepository parkingRepository;
 
-    public boolean isVehicleStartedParking(RegistrationNumber registrationNumber) {
-        Optional<Parking> existParking = parkingRepository.fetchStartedByRegistrationNumber(registrationNumber);
+    public boolean isVehicleStartedParking(final RegistrationNumber registrationNumber) {
+        final Optional<Parking> existParking = parkingRepository.fetchStartedByRegistrationNumber(registrationNumber);
         return existParking.isPresent();
     }
 
-    public BigDecimal summary(Instant from, Instant to) {
-        double summary = parkingRepository.fetchFinishedSummary(from, to);
+    public BigDecimal summary(final Instant from, final Instant to) {
+        final double summary = parkingRepository.fetchFinishedSummary(from, to);
         return ScalePrice.scale(new BigDecimal(summary));
     }
 }
