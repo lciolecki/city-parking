@@ -1,8 +1,9 @@
-# city-parking
-City parking spaces REST Project
+City Parking Meter
+===============
+
+[![Build Status](https://travis-ci.org/lciolecki/city-parking.svg)](https://travis-ci.org/lciolecki/city-parking)  [![Coverage Status](https://coveralls.io/repos/github/lciolecki/city-parking/badge.svg?branch=master)](https://coveralls.io/github/lciolecki/city-parking?branch=master)
 
 ## Docs
-
 
 The customer wants to build a service for managing the city parking spaces.
 
