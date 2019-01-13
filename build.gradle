@@ -26,6 +26,10 @@ group = 'com.city'
 version = 'v0.0.1'
 sourceCompatibility = 1.8
 
+jar {
+	archivesBaseName = 'city-parking'
+}
+
 repositories {
 	mavenCentral()
 }

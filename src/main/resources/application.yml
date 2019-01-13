@@ -5,17 +5,10 @@ spring:
     password: ${DB_PASSWORD:admin}
     driver-class-name: org.postgresql.Driver
   jpa:
-    #    generate-ddl: ${JPA_GENERATE_DDL:false}
-    #    hibernate:
-    #      use-new-id-generator-mappings: false
-    #      ddl-auto: ${HIBERNATE_DDL_AUTO:update}
     properties:
       hibernate:
         temp:
           use_jdbc_metadata_defaults: false
-  cache:
-    caffeine:
-      spec: maximumSize=${CACHE_MAXIMUM_SIZE:100}, expireAfterWrite=${CACHE_TIME_IN_SECONDS:10}
   flyway:
     enabled: true
     schemas: ["public"]
