@@ -7,7 +7,12 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2"
 	}
+}
+
+plugins {
+	id "com.github.kt3k.coveralls" version "2.8.2"
 }
 
 apply plugin: 'java'
@@ -15,7 +20,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: "jacoco"
-
+apply plugin: "com.github.kt3k.coveralls"
 
 group = 'com.city'
 version = 'v0.0.1'
@@ -49,7 +54,10 @@ jacocoTestReport {
 	group = "Reporting"
 	reports {
 		xml.enabled true
-		csv.enabled false
-		html.destination file("${buildDir}/reports/coverage")
+		html.enabled true
 	}
+}
+
+coveralls {
+	jacocoReportPath "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
 }

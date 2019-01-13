@@ -1,9 +1,7 @@
 City Parking Meter
 ===============
 
-[![Build Status](https://travis-ci.org/lciolecki/city-parking.svg)](https://travis-ci.org/lciolecki/city-parking)  [![Coverage Status](https://coveralls.io/repos/github/lciolecki/city-parking/badge.svg?branch=develop)](https://coveralls.io/github/lciolecki/city-parking?branch=develop)
-
-## Docs
+[![Build Status](https://travis-ci.org/lciolecki/city-parking.svg)](https://travis-ci.org/lciolecki/city-parking) [![Coverage Status](https://coveralls.io/repos/github/lciolecki/city-parking/badge.svg?branch=develop)](https://coveralls.io/github/lciolecki/city-parking?branch=develop)
 
 The customer wants to build a service for managing the city parking spaces.
 

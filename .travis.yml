@@ -12,9 +12,12 @@ cache:
     - $HOME/.gradle/wrapper/
 
 script:
-  - ./gradlew check
-  - ./gradlew clean -x test build
-  - ./gradlew jacocoTestReport --continue
+  - ./gradlew clean
+  - ./gradlew test
+  - ./gradlew build -x test
+
+after_success:
+  - ./gradlew jacocoTestReport coveralls
 
 notifications:
   email: true
