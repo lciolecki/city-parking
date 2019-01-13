@@ -1,7 +1,7 @@
 City Parking Meter
 ===============
 
-[![Build Status](https://travis-ci.org/lciolecki/city-parking.svg)](https://travis-ci.org/lciolecki/city-parking)  [![Coverage Status](https://coveralls.io/repos/github/lciolecki/city-parking/badge.svg?branch=master)](https://coveralls.io/github/lciolecki/city-parking?branch=master)
+[![Build Status](https://travis-ci.org/lciolecki/city-parking.svg)](https://travis-ci.org/lciolecki/city-parking)  [![Coverage Status](https://coveralls.io/repos/github/lciolecki/city-parking/badge.svg?branch=develop)](https://coveralls.io/github/lciolecki/city-parking?branch=develop)
 
 ## Docs
 
