@@ -13,8 +13,8 @@ cache:
 
 script:
   - ./gradlew check
-  - ./gradlew jacocoTestReport --continue
   - ./gradlew clean -x test build
+  - ./gradlew jacocoTestReport --continue
 
 notifications:
   email: true

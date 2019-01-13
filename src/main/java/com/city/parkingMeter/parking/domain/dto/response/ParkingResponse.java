@@ -27,7 +27,7 @@ public class ParkingResponse {
 
     private final HashId id;
 
-    public static ParkingResponse fromParkingEntity(Parking parking) {
+    public static ParkingResponse of(Parking parking) {
         return new ParkingResponse(
                 parking.getRegistrationNumber(),
                 parking.getDriverType(),

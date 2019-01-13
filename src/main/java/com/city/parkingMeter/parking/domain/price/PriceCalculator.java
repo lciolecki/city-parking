@@ -1,27 +1,24 @@
 package com.city.parkingMeter.parking.domain.price;
 
-import org.joda.time.Hours;
-
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Objects;
 
 public interface PriceCalculator {
 
-    double getPriceFirstHour();
+    BigDecimal getPriceFirstHour();
 
     double getRate();
 
     default BigDecimal calculate(Instant startedAt, Instant finishedAt) {
-        int hours = hours(startedAt, finishedAt);
-        double sum = amount(1, hours, 0.0);
-        BigDecimal price = new BigDecimal(sum);
+        long hours = calculateHoursNumber(startedAt, finishedAt);
+        BigDecimal price = amount(1, new BigDecimal(0.0), hours);
 
         return ScalePrice.scale(price);
     }
 
-    default int hours(Instant startedAt, Instant finishedAt) {
-
+    default long calculateHoursNumber(Instant startedAt, Instant finishedAt) {
         if (Objects.isNull(startedAt) || Objects.isNull(finishedAt)) {
             throw PriceCounterException.of("Params startedAt and finishedAt should be not null.");
         }
@@ -30,33 +27,30 @@ public interface PriceCalculator {
             throw PriceCounterException.of("Param startedAt should be before than finishedAt.");
         }
 
-        return Hours.hoursBetween(
-                org.joda.time.Instant.ofEpochMilli(startedAt.toEpochMilli()),
-                org.joda.time.Instant.ofEpochMilli(finishedAt.toEpochMilli())
-        ).getHours() + 1;
+        return Duration.between(startedAt,finishedAt).toHours() + 1;
     }
 
-    default double amount(int hour, int hours, double previous) {
-        double actual = 2.0;
+    default BigDecimal amount(long actualHour, BigDecimal previousPrice, long numberOfHours) {
+        BigDecimal actual = new BigDecimal(2.0);
 
-        if (hour == 1) {
-            if (hours == 1) {
+        if (actualHour == 1) {
+            if (numberOfHours == 1) {
                 return getPriceFirstHour();
             }
 
-            return getPriceFirstHour() + amount(++hour, hours, getPriceFirstHour());
+            return getPriceFirstHour().add(amount(++actualHour, getPriceFirstHour(), numberOfHours));
         }
 
-        if (hour == 2 && hours == 2) {
+        if (actualHour == 2 && numberOfHours == 2) {
             return actual;
-        } else if (hour > 2) {
-            actual = (previous * getRate());
+        } else if (actualHour > 2) {
+            actual = previousPrice.multiply(new BigDecimal(getRate()));
         }
 
-        if (hour >= hours) {
+        if (actualHour >= numberOfHours) {
             return actual;
         }
 
-        return actual + amount(++hour, hours, actual);
+        return actual.add(amount(++actualHour, actual, numberOfHours));
     }
 }

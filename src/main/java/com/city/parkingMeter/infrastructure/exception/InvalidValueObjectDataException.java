@@ -22,14 +22,6 @@ public class InvalidValueObjectDataException extends RuntimeException {
         ));
     }
 
-    public static InvalidValueObjectDataException invalid(Class<?> objectClass, Long value) {
-        return new InvalidValueObjectDataException(String.format(
-                "Value %s is not valid %s object.",
-                value.toString(),
-                objectClass.getSimpleName()
-        ));
-    }
-
     public static InvalidValueObjectDataException nullException(Class<?> objectClass) {
         return new InvalidValueObjectDataException(String.format(
                 "Value null is not valid %s object.",

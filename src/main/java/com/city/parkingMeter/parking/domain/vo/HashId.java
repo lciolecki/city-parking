@@ -42,7 +42,7 @@ public final class HashId implements Serializable {
 
     public static UUID validate(UUID value) {
         if (isNull(value)) {
-            throw new InvalidValueObjectDataException("ID must not be null.");
+            throw InvalidValueObjectDataException.nullException(HashId.class);
         }
 
         return value;

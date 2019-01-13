@@ -33,17 +33,11 @@ public class ParkingService {
                 .orElseThrow(() -> RecordNotFoundException.notFound(Parking.class, hashId));
     }
 
-    public Parking fetchStartedByRegistrationNumber(final RegistrationNumber registrationNumber) {
-        return parkingRepository.fetchStartedByRegistrationNumber(registrationNumber)
-                .orElseThrow(() -> RecordNotFoundException.notFound(Parking.class, registrationNumber.toString()));
-    }
-
     public final Parking fetch(final HashId id, final ParkingStatus parkingStatus) {
         return ApplicableUtil.applyWith(fetchById(id), parkingStatus);
     }
 
     public Parking create(ParkingPayload payload) {
-
         if (isVehicleStartedParking(payload.getRegistrationNumber())) {
             throw ParkingStatusException.startedException(payload.getRegistrationNumber());
         }
@@ -74,7 +68,7 @@ public class ParkingService {
     }
 
     boolean isVehicleStartedParking(final RegistrationNumber registrationNumber) {
-        final Optional<Parking> existParking = parkingRepository.fetchStartedByRegistrationNumber(registrationNumber);
-        return existParking.isPresent();
+        final Optional<Parking> parkingOptional = parkingRepository.fetchStartedByRegistrationNumber(registrationNumber);
+        return parkingOptional.isPresent();
     }
 }

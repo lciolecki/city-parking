@@ -31,13 +31,13 @@ public class ParkingMeterController {
     @PostMapping("/")
     public ResponseEntity<ParkingCreateResponse> create(@RequestBody @Validated ParkingPayload payload) {
         Parking parking = parkingService.create(payload);
-        return new ResponseEntity(ParkingCreateResponse.fromParkingEntity(parking), HttpStatus.CREATED);
+        return new ResponseEntity(ParkingCreateResponse.of(parking), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     public ParkingResponse retrieve(@PathVariable @Valid HashId id) {
         Parking parking = parkingService.fetchById(id);
-        return ParkingResponse.fromParkingEntity(parking);
+        return ParkingResponse.of(parking);
     }
 
     @PostMapping("/{id}/stop")

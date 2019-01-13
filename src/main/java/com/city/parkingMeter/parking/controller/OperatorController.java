@@ -1,7 +1,8 @@
 package com.city.parkingMeter.parking.controller;
 
-import com.city.parkingMeter.parking.domain.dto.response.OperatorCheckResponse;
+import com.city.parkingMeter.parking.domain.Parking;
 import com.city.parkingMeter.parking.domain.dto.response.OperatorSummaryResponse;
+import com.city.parkingMeter.parking.domain.dto.response.ParkingResponse;
 import com.city.parkingMeter.parking.domain.vo.RegistrationNumber;
 import com.city.parkingMeter.parking.service.OperatorService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,10 @@ public class OperatorController {
 
     private final OperatorService operatorService;
 
-    @GetMapping("/vehicle/{registrationNumber}/check")
-    public OperatorCheckResponse check(@PathVariable @Valid RegistrationNumber registrationNumber) {
-        return new OperatorCheckResponse(operatorService.isVehicleStartedParking(registrationNumber));
+    @GetMapping("/vehicle/{registrationNumber}")
+    public ParkingResponse check(@PathVariable @Valid RegistrationNumber registrationNumber) {
+        Parking parking = operatorService.fetchStartedByRegistrationNumber(registrationNumber);
+        return ParkingResponse.of(parking);
     }
 
     @GetMapping("/summary")
