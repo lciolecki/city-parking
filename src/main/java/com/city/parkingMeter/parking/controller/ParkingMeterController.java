@@ -30,20 +30,20 @@ public class ParkingMeterController {
 
     @PostMapping("/")
     public ResponseEntity<ParkingCreateResponse> create(@RequestBody @Validated ParkingPayload payload) {
-        Parking parking = parkingService.create(payload);
+        final Parking parking = parkingService.create(payload);
         return new ResponseEntity(ParkingCreateResponse.of(parking), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     public ParkingResponse retrieve(@PathVariable @Valid HashId id) {
-        Parking parking = parkingService.fetchById(id);
+        final Parking parking = parkingService.fetchById(id);
         return ParkingResponse.of(parking);
     }
 
     @PostMapping("/{id}/stop")
     public ResponseEntity<Void> stop(@PathVariable @Valid HashId id, @RequestBody @Validated ParkingStopPayload payload) {
-        Parking parking = parkingService.stop(id, payload);
-        return ResponseEntity.noContent().location(fromCurrentRequest().path("/{id}").buildAndExpand(parking.getIdAsString()).toUri()).build();
+        parkingService.stop(id, payload);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}/check-payment")

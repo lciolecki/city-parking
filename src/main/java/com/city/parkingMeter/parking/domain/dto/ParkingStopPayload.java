@@ -16,9 +16,6 @@ public class ParkingStopPayload {
 
     private final BigDecimal price;
 
-    @NotNull
-    private final Instant finishedAt = Instant.now();
-
     @JsonCreator
     public ParkingStopPayload(@JsonProperty("price") @Validated BigDecimal price) {
         this.price = ScalePrice.scale(price);

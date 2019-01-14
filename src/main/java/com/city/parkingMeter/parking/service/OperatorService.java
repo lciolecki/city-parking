@@ -24,7 +24,7 @@ public class OperatorService {
     }
 
     public BigDecimal summary(final Instant from, final Instant to) {
-        final double summary = parkingRepository.fetchFinishedSummary(from, to);
-        return ScalePrice.scale(new BigDecimal(summary));
+        final BigDecimal summary = parkingRepository.fetchFinishedSummary(from, to);
+        return ScalePrice.scale(summary);
     }
 }

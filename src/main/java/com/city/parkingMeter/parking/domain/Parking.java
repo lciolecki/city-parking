@@ -59,10 +59,10 @@ public class Parking {
         return new Parking(new HashId(), payload.getRegistrationNumber(), payload.getDriverType());
     }
 
-    public Parking finishParking(ParkingStopPayload payload) {
+    public Parking finish(ParkingStopPayload payload, Instant finishedAt) {
         this.parkingStatus = ParkingStatus.FINISHED;
-        this.finishedAt = payload.getFinishedAt();
         this.price = payload.getPrice();
+        this.finishedAt =finishedAt;
 
         return this;
     }

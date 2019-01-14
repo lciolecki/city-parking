@@ -37,8 +37,8 @@ public class ParkingService {
         return ApplicableUtil.applyWith(fetchById(id), parkingStatus);
     }
 
-    public Parking create(ParkingPayload payload) {
-        if (isVehicleStartedParking(payload.getRegistrationNumber())) {
+    public Parking create(final ParkingPayload payload) {
+        if (hasVehicleStartedParking(payload.getRegistrationNumber())) {
             throw ParkingStatusException.startedException(payload.getRegistrationNumber());
         }
 
@@ -50,12 +50,13 @@ public class ParkingService {
     public Parking stop(final HashId id, final ParkingStopPayload payload) {
         Parking parking = fetch(id, ParkingStatus.STARTED);
 
-        final BigDecimal price = calculatePayment(parking, payload.getFinishedAt());
+        final Instant finishedAt = Instant.now();
+        final BigDecimal price = calculatePayment(parking, finishedAt);
         if (!Objects.equals(payload.getPrice(), price)) {
             throw ParkingPriceException.wrongStopPrice(payload.getPrice(), price);
         }
 
-        parking.finishParking(payload);
+        parking.finish(payload, finishedAt);
 
         return parkingRepository.save(parking);
     }
@@ -67,7 +68,7 @@ public class ParkingService {
         return price;
     }
 
-    boolean isVehicleStartedParking(final RegistrationNumber registrationNumber) {
+    boolean hasVehicleStartedParking(final RegistrationNumber registrationNumber) {
         final Optional<Parking> parkingOptional = parkingRepository.fetchStartedByRegistrationNumber(registrationNumber);
         return parkingOptional.isPresent();
     }

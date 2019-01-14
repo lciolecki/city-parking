@@ -19,8 +19,8 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: "jacoco"
-apply plugin: "com.github.kt3k.coveralls"
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
 
 group = 'com.city'
 version = 'v0.0.1'
@@ -51,7 +51,7 @@ dependencies {
 	compile 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.3'
 	testImplementation('com.h2database:h2')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
-	testImplementation("io.zonky.test:embedded-database-spring-test:1.3.4")
+	testImplementation('io.zonky.test:embedded-database-spring-test:1.3.4')
 }
 
 jacocoTestReport {

@@ -56,7 +56,7 @@ public class ParkingServiceTest {
         Parking parking = createExampleParkingEntity(registrationNumber, DriverType.REGULAR);
 
         given(repository.fetchStartedByRegistrationNumber(any())).willReturn(Optional.of(parking));
-        boolean isStarted = service.isVehicleStartedParking(registrationNumber);
+        boolean isStarted = service.hasVehicleStartedParking(registrationNumber);
 
         Assert.assertTrue(isStarted);
     }
@@ -65,7 +65,7 @@ public class ParkingServiceTest {
     @Test
     public void isVehicleStartedParkingFalse() {
         RegistrationNumber registrationNumber = RegistrationNumber.of("LLB1234");
-        boolean isStarted = service.isVehicleStartedParking(registrationNumber);
+        boolean isStarted = service.hasVehicleStartedParking(registrationNumber);
 
         Assert.assertFalse(isStarted);
     }

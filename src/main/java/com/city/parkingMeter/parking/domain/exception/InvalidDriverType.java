@@ -16,6 +16,6 @@ public class InvalidDriverType extends RuntimeException {
     }
 
     public static InvalidDriverType of(DriverType campaignType) {
-        return new InvalidDriverType(String.format("Invalid driver type: %s. Expected types: %s.", campaignType.toString()));
+        return new InvalidDriverType(String.format("Invalid driver type: %s.", campaignType.toString()));
     }
 }

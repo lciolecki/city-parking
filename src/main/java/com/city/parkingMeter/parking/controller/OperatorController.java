@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 @RestController
@@ -30,11 +31,11 @@ public class OperatorController {
 
     @GetMapping("/summary")
     public OperatorSummaryResponse summary(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to
     ) {
-        Instant fromInstant = from.atStartOfDay().toInstant(ZoneOffset.UTC);
-        Instant toInstant = to.atStartOfDay().toInstant(ZoneOffset.UTC);
+        Instant fromInstant = from.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Instant toInstant = to.atStartOfDay(ZoneId.systemDefault()).toInstant();
         BigDecimal summary = operatorService.summary(fromInstant, toInstant);
 
         return new OperatorSummaryResponse(summary, fromInstant, toInstant);
