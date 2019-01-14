@@ -7,32 +7,61 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2"
 	}
+}
+
+plugins {
+	id "com.github.kt3k.coveralls" version "2.8.2"
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
 
 group = 'com.city'
-version = '0.0.1-SNAPSHOT'
+version = 'v0.0.1'
 sourceCompatibility = 1.8
+
+jar {
+	archivesBaseName = 'city-parking'
+}
 
 repositories {
 	mavenCentral()
 }
 
-
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-actuator')
 	implementation('org.springframework.boot:spring-boot-starter-cache')
 	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-	implementation('org.springframework.boot:spring-boot-starter-security')
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('org.flywaydb:flyway-core')
 	runtimeOnly('org.postgresql:postgresql')
-	compileOnly('org.projectlombok:lombok')
+	compileOnly('org.projectlombok:lombok:1.18.4')
+	annotationProcessor('org.projectlombok:lombok:1.18.4')
+	compile 'com.google.guava:guava:27.0.1-jre'
+    compile ('io.springfox:springfox-swagger2:2.9.2')
+    compile ('io.springfox:springfox-swagger-ui:2.9.2')
+    compile ('io.springfox:springfox-data-rest:2.9.2')
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.1'
+	compile 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.3'
+	testImplementation('com.h2database:h2')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
-	testImplementation('org.springframework.security:spring-security-test')
+	testImplementation('io.zonky.test:embedded-database-spring-test:1.3.4')
+}
+
+jacocoTestReport {
+	group = "Reporting"
+	reports {
+		xml.enabled true
+		html.enabled true
+	}
+}
+
+coveralls {
+	jacocoReportPath "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
 }
